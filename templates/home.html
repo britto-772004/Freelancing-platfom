@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Freelance Hub</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="header-left">
+            <h1>Freelance Hub</h1>
+        </div>
+        <div class="header-right">
+            <a href="/" class="header-btn profile">👤 Profile</a>
+            <a href="/login" class="header-btn logout">🚪 Logout</a>
+        </div>
+    </header>
+
+    <!-- Fixed Left Panel with Buttons -->
+    <div class="left-panel">
+        <a href="/home" class="panel-btn">🏠 Home</a>
+        <a href="/domain" class="panel-btn">🌎 Domain</a>
+        <a href="{{url_for('projects')}}" class="panel-btn">📁 Projects</a>
+        <a href="/dashboard" class="panel-btn">📊 Dashboard</a>
+        <a href="{{url_for('create_project')}}" class="panel-btn">Create Project</a>
+    </div>
+
+    <!-- Main Content -->
+    <main class="content">
+        <div class="search-container">
+            <input type="text" class="search-bar" placeholder="Search projects...">
+            <button class="search-btn">Search</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 Freelance Hub</p>
+    </footer>
+</body>
+</html>

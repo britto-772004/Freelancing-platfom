@@ -1,0 +1,140 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f4f4f4;
+    color: #333;
+}
+
+/* Header Styles */
+header {
+    background: #2c3e50;
+    color: white;
+    padding: 24px 0;
+    text-align: center;
+
+}
+
+header .container {
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    margin-left: 44%;
+}
+
+header h1 {
+    font-size: 30px;
+    margin: 0;
+}
+
+nav {
+    display: flex;
+    gap: 15px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease-in-out;
+}
+
+nav a:hover {
+    color: #f39c12;
+}
+
+/* Login Section */
+.login-section {
+    max-width: 400px;
+    margin: 60px auto;
+    padding: 30px;
+    background: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.login-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+/* Form Styles */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    text-align: left;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.form-group input:focus {
+    border-color: #f39c12;
+    outline: none;
+}
+
+/* CTA Button */
+.cta-button {
+    background: #f39c12;
+    color: white;
+    font-size: 16px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.cta-button:hover {
+    background: #e67e22;
+}
+
+/* Sign-up Link */
+p {
+    font-size: 14px;
+    margin-top: 15px;
+}
+
+p a {
+    color: #e67e22;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+p a:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    background: #2c3e50;
+    color: white;
+    padding: 15px 0;
+    margin-top: 155px;
+}
+
+.footer-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    font-size: 14px;
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Freelance Hub</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/client-signup.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Freelance Hub</h1>
+        </div>
+    </header>
+    <main>
+        <section class="signup-section">
+            <h2>Create Your Account</h2>
+            <form class="signup-form" action="{{url_for('client_signup_verification')}}" method="POST">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Create a password" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                </div>
+                <button type="submit" class="cta-button">Sign Up</button>
+            </form>
+            <p>Already have an account? <a href="{{url_for('client_login')}}">Login</a></p>
+        </section>
+    </main>
+    <footer>
+        <div class="footer-container">
+            <p>© 2025 Freelancing Website</p>
+        </div>
+    </footer>
+</body>
+</html>

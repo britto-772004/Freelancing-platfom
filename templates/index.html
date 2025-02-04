@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freelancing Website</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Freelance Hub</h1>
+            <nav>
+                <!-- <a href="/">Home</a> -->
+                <!-- <a href="/login"></a> -->
+                <!-- <a href="/signup">Signup</a> -->
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="intro">
+            <h2>Find the Best Freelancers for Your Projects</h2>
+            <p>Browse through a wide range of skilled freelancers or post your job today!</p>
+        </section>
+        <section class="cta">
+            <div class="cta-box">
+                <h3>Are you a Client?</h3>
+                <p>Hire top talent for your project.</p>
+                <a href="{{url_for('client_login')}}"  class="cta-button">Login as Client</a>
+            </div>
+            <div class="cta-box">
+                <h3>Are you a Freelancer?</h3>
+                <p>Showcase your skills and get hired.</p>
+                <a href="{{url_for('freelancer_login')}}" class="cta-button">Login as Freelancer</a>
+            </div>
+        </section>
+        <!-- New section: Freelancers and Their Use Cases -->
+        <section class="freelancer-info">
+            <h2>Why Choose Freelancers?</h2>
+            <div class="freelancer-cards">
+                <div class="card">
+                    <h3>Expertise Across Multiple Domains</h3>
+                    <p>Freelancers bring specialized expertise from a wide range of industries, including technology, design, marketing, writing, and more. Whether you need a software developer, a graphic designer, or a content creator, you can find the perfect match for your project.</p>
+                </div>
+                <div class="card">
+                    <h3>Flexible and Scalable Solutions</h3>
+                    <p>Freelancers offer the flexibility to scale your team quickly, based on the project requirements. Hire them on a short-term or long-term basis, and easily adjust the team size as per your needs.</p>
+                </div>
+                <div class="card">
+                    <h3>Cost-Effective and Efficient</h3>
+                    <p>Hiring freelancers can save costs compared to full-time employees. With the ability to hire skilled professionals without the overhead of long-term employment, clients can get high-quality results within their budget and timeline.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="footer-container">
+            <p>© 2025 Freelancing Website</p>
+        </div>
+    </footer>
+</body>
+</html>
