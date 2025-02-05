@@ -146,6 +146,19 @@ def insert_data_for_create_project():
     print("output was successfully entered into the Project table")
     return redirect("/home")
 
+# Route to display the detailed project page
+@app.route("/project/<int:project_id>", methods=['GET'])
+def project_details(project_id):
+    # Fetch project details from the database using the project_id
+    response = supabase_client.table("Projects").select("*").eq("project_id", project_id).execute()
+
+    if response.data:
+        project = response.data[0]  # Get the first project (there should only be one)
+        return render_template("view.html", project=project)
+    else:
+        # If the project is not found, redirect or show an error message
+        return "Project not found", 404
+
 
 if __name__ == '__main__':
     app.run(debug=True)

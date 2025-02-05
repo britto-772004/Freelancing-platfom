@@ -24,17 +24,57 @@
         <a href="/domain" class="panel-btn">🌎 Domain</a>
         <a href="{{url_for('projects')}}" class="panel-btn">📁 Projects</a>
         <a href="/dashboard" class="panel-btn">📊 Dashboard</a>
-        <a href="{{url_for('create_project')}}" class="panel-btn">Create Project</a>
+        <a href="{{url_for('create_project')}}" class="panel-btn">➕ Create Project</a>
     </div>
 
     <!-- Main Content -->
     <main class="content">
-        <div class="search-container">
-            <input type="text" class="search-bar" placeholder="Search projects...">
-            <button class="search-btn">Search</button>
-        </div>
+        <section class="about">
+            <h2>Welcome to Freelance Hub</h2>
+            <p>Freelance Hub is a platform designed to connect talented freelancers with businesses and individuals looking for high-quality services. Whether you are a developer, designer, writer, or marketer, this platform offers opportunities to showcase your skills and earn money.</p>
+        </section>
+
+        <section class="features">
+            <h2>Why Choose Freelance Hub?</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <img src="https://images.pexels.com/photos/3194518/pexels-photo-3194518.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Freelance Opportunities">
+                    <h3>Endless Opportunities</h3>
+                    <p>Work on exciting projects from clients worldwide and build your career as a freelancer.</p>
+                </div>
+                <div class="feature-item">
+                    <img src="https://images.pexels.com/photos/3153198/pexels-photo-3153198.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Secure Payments">
+                    <h3>Secure Payments</h3>
+                    <p>We ensure safe and timely payments for all completed projects.</p>
+                </div>
+                <div class="feature-item">
+                    <img src="https://images.pexels.com/photos/4065133/pexels-photo-4065133.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Flexible Work">
+                    <h3>Work Flexibly</h3>
+                    <p>Choose projects that match your skills and work from anywhere, anytime.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="how-it-works">
+            <h2>How It Works?</h2>
+            <div class="steps">
+                <div class="step">
+                    <h3>1. Sign Up</h3>
+                    <p>Create a profile and showcase your skills to attract clients.</p>
+                </div>
+                <div class="step">
+                    <h3>2. Browse Projects</h3>
+                    <p>Explore a variety of projects and apply for the ones that match your expertise.</p>
+                </div>
+                <div class="step">
+                    <h3>3. Get Hired & Paid</h3>
+                    <p>Work on projects, deliver quality work, and receive payments securely.</p>
+                </div>
+            </div>
+        </section>
     </main>
 
+    <!-- Footer -->
     <footer>
         <p>© 2025 Freelance Hub</p>
     </footer>

@@ -13,7 +13,7 @@ body {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    overflow: hidden;  /* Prevent overflow */
+    overflow:scroll;  /* Prevent overflow */
 }
 
 /* Header */

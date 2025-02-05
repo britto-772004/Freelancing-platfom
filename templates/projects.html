@@ -22,7 +22,7 @@
     <div class="left-panel">
         <a href="/home" class="panel-btn">🏠 Home</a>
         <a href="/domain" class="panel-btn">🌎 Domain</a>
-        <a href="/projects" class="panel-btn">📁 Projects</a>
+        <a href="/" class="panel-btn">📁 Projects</a>
         <a href="/dashboard" class="panel-btn">📊 Dashboard</a>
         
     </div>
@@ -43,7 +43,7 @@
                     <h3>{{ user.title }}</h3>
                     <p>{{ user.description }}</p>
                 </div>
-                <button class="view-btn">View</button>
+                <a href="/project/{{ user.project_id }}" class="view-btn">View</a>
             </div>
 
             {% endfor %}
