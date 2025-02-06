@@ -149,15 +149,46 @@ def insert_data_for_create_project():
 # Route to display the detailed project page
 @app.route("/project/<int:project_id>", methods=['GET'])
 def project_details(project_id):
-    # Fetch project details from the database using the project_id
     response = supabase_client.table("Projects").select("*").eq("project_id", project_id).execute()
 
     if response.data:
         project = response.data[0]  # Get the first project (there should only be one)
         return render_template("view.html", project=project)
     else:
-        # If the project is not found, redirect or show an error message
         return "Project not found", 404
+
+@app.route("/domain")
+def domain():
+    """Fetch unique domains and count projects"""
+    response = supabase_client.table("Projects").select("domain, project_id, title").execute()
+    projects = response.data  
+
+    domain_data = {}
+    for project in projects:
+        domain = project["domain"]
+        project_id = project["project_id"]
+        title = project["title"]
+
+        if domain not in domain_data:
+            domain_data[domain] = {"count": 0, "projects": []}
+
+        domain_data[domain]["count"] += 1
+        domain_data[domain]["projects"].append({"id": project_id, "title": title})  # Store project details
+
+    return render_template("domain.html", domain_data=domain_data)
+
+
+@app.route("/domain/<domain_name>")
+def projects_by_domain(domain_name):
+    """Fetch projects for a selected domain"""
+    response = supabase_client.table("Projects").select("project_id, title, description").eq("domain", domain_name).execute()
+    projects = response.data  
+
+    return render_template("projects.html", domain=domain_name, projects=projects)
+
+
+
+
 
 
 if __name__ == '__main__':
