@@ -204,6 +204,7 @@ header h1 {
     font-size: 16px;
     cursor: pointer;
     transition: 0.3s;
+    text-decoration: none;
     white-space: nowrap; /* Prevent button text from wrapping */
 }
 
