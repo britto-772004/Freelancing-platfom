@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for , session
 import supabase
 from datetime import datetime
 
 app = Flask(__name__)
+app.secret_key = "noviun4t9483fjf9348j"
 
 supabase_url = "https://fonxxczyeptkamzpiatm.supabase.co"
 supabase_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZvbnh4Y3p5ZXB0a2FtenBpYXRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzgxMTYwNTEsImV4cCI6MjA1MzY5MjA1MX0.xf0R2Iem4dAXBun-OXM-j78mHNw2v8nEbVqodPxyNGk"
@@ -10,9 +11,14 @@ supabase_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJ
 
 supabase_client = supabase.create_client(supabase_url,supabase_key)
 
-@app.route('/44')
+@app.route("/")
 def index():
     return render_template('index.html')
+
+@app.route("/index")
+def index2():
+    return render_template("index.html")
+
 #client login
 @app.route("/client-login", methods = ['POST','Get'])
 def client_login():
@@ -49,6 +55,7 @@ def client_login_verification():
             data = {"mail-id" : mailid , "passwd" :passwd, "timestamp" : time}
             supabase_client.table("client-login").insert(data).execute()
             print("sucessfully added in the login page ....")
+            session['mail-id'] = mailid
             return redirect("/home")
         message = "Incorrect password !!"
         return render_template("client-login.html" , message = message)
@@ -72,6 +79,8 @@ def freelancer_login_verification():
             data = {"mail-id" : mailid , "passwd" :passwd, "timestamp" : time}
             supabase_client.table("freelancer-login").insert(data).execute()
             print("sucessfully added in the freelancer login page ....")
+            # added the mail-id into the session 
+            session['mail-id'] = mailid
             return redirect("/home")
         message = "Incorrect password !!"
         return render_template("freelancer-login.html" , message = message)
@@ -109,7 +118,7 @@ def home():
     return render_template("home.html")
 
 #take the data from the Projects table and send it to the projects.html
-@app.route("/", methods = ['POST','GET'])
+@app.route("/projects", methods = ['POST','GET'])
 def projects():
     response = supabase_client.table("Projects").select("*").execute()
     print("output from the Projects table : ",response)
@@ -152,8 +161,9 @@ def project_details(project_id):
     response = supabase_client.table("Projects").select("*").eq("project_id", project_id).execute()
 
     if response.data:
-        project = response.data[0]  # Get the first project (there should only be one)
-        return render_template("view.html", project=project)
+        projectttt = response.data[0]  # Get the first project (there should only be one)
+        print("Project details when click the view button : ", projectttt)
+        return render_template("view.html", project = projectttt)
     else:
         return "Project not found", 404
 
@@ -188,8 +198,51 @@ def projects_by_domain(domain_name):
 
 
 
+#put it in the Enroll-project table when the user enroll the project
+@app.route("/enroll/<int:project_id>", methods = ['GET','POST'])
+def enroll_project(project_id):
+    mail_id = session['mail-id']
+    time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
+    data = {
+            "project_id" : project_id,
+            "freelancer-mail-id" : mail_id,
+            "progress" : "In - Progress",
+            "time" : time
+            }
+    
+    supabase_client.table("Enroll-project").insert(data).execute()
+    print("data inserted into the Enroll-project table")
+    message = "Enrolled successfully !!!"
+    return render_template("home.html" , message= message)
 
+#logout for freelancer
+@app.route("/logout-freelancer")
+def logout_freelancer():
+    session.clear()
+    return render_template("index.html")
+
+#logout for client
+@app.route("/logout-client")
+def logout_client():
+    session.clear()
+    return redirect("/")
+
+#dashboard 
+@app.route("/dashboard")
+def dashboard():
+    return render_template("dashboard.html")
+
+#rewards
+@app.route("/rewards")
+def rewards():
+    return render_template("rewards.html")
+
+# to see the session data 
+@app.route("/to-see-session")
+def see_session():
+    print("session details : ",session)
+    return redirect("/home")
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -14,8 +14,8 @@
             <h1>Freelance Hub</h1>
         </div>
         <div class="header-right">
-            <a href="/" class="header-btn profile">👤 Profile</a>
-            <a href="/login" class="header-btn logout">🚪 Logout</a>
+            <a href="#" class="header-btn profile">👤 Profile</a>
+            <a href="/logout-freelancer" class="header-btn logout">🚪 Logout</a>
         </div>
     </header>
 
@@ -28,10 +28,12 @@
         <a href="{{url_for('create_project')}}" class="panel-btn">➕ Create Project</a>
         <a href="/rewards" class="panel-btn">🎖️ Rewards</a>
     </div>    
-
+    
     <!-- Main Content -->
     <main class="content">
+        <h1 style="color: brown;">{{ message }}</h1>
         <section class="about">
+            
             <h2>Welcome to Freelance Hub</h2>
             <p>Freelance Hub is a platform designed to connect talented freelancers with businesses and individuals looking for high-quality services. Whether you are a developer, designer, writer, or marketer, this platform offers opportunities to showcase your skills and earn money.</p>
         </section>
