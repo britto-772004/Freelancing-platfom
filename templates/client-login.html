@@ -29,6 +29,7 @@
                 </div>
                 <button type="submit" class="cta-button">Login</button>
             </form>
+            <a href="{{ url_for('google_login',role='client') }}"><button>Login with Google</button></a>            
             <p>Don't have an account? <a href="{{url_for('client_signup')}}">Sign Up</a></p>
         </section>
     </main>

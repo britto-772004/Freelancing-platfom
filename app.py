@@ -1,23 +1,37 @@
 from flask import Flask, render_template, request, redirect, url_for , session
 import supabase
+import secrets
 from datetime import datetime
+from authlib.integrations.flask_client import OAuth
+from api_key import *
+from auth import *
 
 app = Flask(__name__)
 app.secret_key = "noviun4t9483fjf9348j"
 
-supabase_url = "https://fonxxczyeptkamzpiatm.supabase.co"
-supabase_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZvbnh4Y3p5ZXB0a2FtenBpYXRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzgxMTYwNTEsImV4cCI6MjA1MzY5MjA1MX0.xf0R2Iem4dAXBun-OXM-j78mHNw2v8nEbVqodPxyNGk"
-
+supabase_url = supabase_URL
+supabase_key = supabase_KEY
 
 supabase_client = supabase.create_client(supabase_url,supabase_key)
 
+
+#google authorization
+oauth = OAuth(app)
+google = oauth.register(
+    name = "google",
+    client_id = CLIENT_ID,
+    client_secret = CLIENT_SECRET,
+    access_token_url="https://oauth2.googleapis.com/token",
+    authorize_url="https://accounts.google.com/o/oauth2/auth",
+    server_metadata_url ="https://accounts.google.com/.well-known/openid-configuration",
+    client_kwargs = {"scope": "openid email profile"},    
+)
+
+
+#Index page of project
 @app.route("/")
 def index():
     return render_template('index.html')
-
-@app.route("/index")
-def index2():
-    return render_template("index.html")
 
 #client login
 @app.route("/client-login", methods = ['POST','Get'])
@@ -113,6 +127,7 @@ def freelancer_signup_verification():
     print("successfully user account added in the freelancer-signup page .....")
     return redirect("/freelancer-login")
 
+#main page after login
 @app.route("/home", methods = ['POST','GET'])
 def home():
     return render_template("home.html")
@@ -125,9 +140,7 @@ def projects():
     datas = response.data
     return render_template("projects.html", users = datas)
 
-
 # create-project
-
 @app.route("/create-project", methods = ['POST','GET'])
 def create_project():
     return render_template("create-project.html")
@@ -167,6 +180,7 @@ def project_details(project_id):
     else:
         return "Project not found", 404
 
+#fetch the projects through domain
 @app.route("/domain")
 def domain():
     """Fetch unique domains and count projects"""
@@ -187,7 +201,7 @@ def domain():
 
     return render_template("domain.html", domain_data=domain_data)
 
-
+#fetch the projects and access through domain
 @app.route("/domain/<domain_name>")
 def projects_by_domain(domain_name):
     """Fetch projects for a selected domain"""
@@ -195,7 +209,6 @@ def projects_by_domain(domain_name):
     projects = response.data  
 
     return render_template("projects.html", domain=domain_name, projects=projects)
-
 
 
 #put it in the Enroll-project table when the user enroll the project
@@ -228,11 +241,6 @@ def logout_client():
     session.clear()
     return redirect("/")
 
-#dashboard 
-@app.route("/dashboard")
-def dashboard():
-    return render_template("dashboard.html")
-
 #rewards
 @app.route("/rewards")
 def rewards():
@@ -244,5 +252,39 @@ def see_session():
     print("session details : ",session)
     return redirect("/home")
 
+#for avoiding back button to get back
+@app.before_request
+def require_login():
+    allowed_routes = ["index", "client_login", "client_signup", "freelancer_login", 
+                      "freelancer_signup", "client_login_verification", "freelancer_login_verification", 
+                      "client_signup_verification", "freelancer_signup_verification","google_login"]
+    if request.endpoint and (request.endpoint.startswith("static") or request.endpoint in allowed_routes):
+        return
+    if "mail-id" not in session and request.endpoint not in allowed_routes:
+        return redirect(url_for("index"))
+
+#dashboard to view projects
+@app.route("/dashboard")
+def dashboard():
+    return render_template("dashboard.html")
+
+# Google Login Route
+@app.route("/google-login/<role>")
+def google_login(role):
+    if role not in ["client", "freelancer"]:
+        return "Invalid role", 400  # Prevent incorrect roles
+    nonce = secrets.token_urlsafe(32)  # Generate a secure nonce
+    session["oauth_nonce"] = nonce  # Store it in the session
+    session["role"] = role  # Store role in session
+    return google.authorize_redirect(url_for("google_auth", _external=True), nonce=nonce)
+
+# Google Authentication Callback
+@app.route("/google-auth")
+def google_auth():
+    role = session.get("role")  # Get role from session
+    if not role:
+        return "Role not specified. Please log in again.", 400
+    return google_authroize(role)
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5001)
