@@ -73,16 +73,31 @@ header h1 {
 /* Left Panel */
 .left-panel {
     position: fixed;
-    top: 9.8%; /* Account for the header height */
-    left: 0;
+    top: 9.8%;
+    left: -200px; /* Hidden by default */
     width: 200px;
-    height: calc(100vh - 106px); /* Height between header and footer */
+    height: calc(100vh - 106px);
     background: rgba(0, 0, 0, 0.8);
     display: flex;
     flex-direction: column;
     padding-top: 40px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
     z-index: 999;
+    transition: left 0.3s ease-in-out;
+}
+
+.left-panel.open {
+    left: 0; /* Show panel */
+}
+
+/* Toggle Button Styling */
+#toggle-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    margin-right: 15px;
 }
 
 /* Panel Buttons */

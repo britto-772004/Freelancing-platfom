@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Home - Freelance Hub</title>
-    <link rel ="shortcut icon" href = "https://img.icons8.com/?size=100&id=Dp45JL5ZtqYY&format=png&color=000000" type= "image/x-icon">
+    <title>Home - Freelance Hub</title>
+    <link rel="shortcut icon" href="https://img.icons8.com/?size=100&id=Dp45JL5ZtqYY&format=png&color=000000" type="image/x-icon">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
 </head>
 <body>
+
     <!-- Header Section -->
     <header>
         <div class="header-left">
+            <button class="menu-btn" onclick="togglePanel()">☰</button>
             <h1>Freelance Hub</h1>
         </div>
         <div class="header-right">
@@ -19,8 +21,8 @@
         </div>
     </header>
 
-    <!-- Fixed Left Panel with Buttons -->
-    <div class="left-panel">
+    <!-- Left Panel (Collapsible Sidebar) -->
+    <div class="left-panel" id="leftPanel">
         <a href="/home" class="panel-btn">🏠 Home</a>
         <a href="/domain" class="panel-btn">🌎 Domain</a>
         <a href="{{url_for('projects')}}" class="panel-btn">📁 Projects</a>
@@ -28,53 +30,13 @@
         <a href="{{url_for('create_project')}}" class="panel-btn">➕ Create Project</a>
         <a href="/rewards" class="panel-btn">🎖️ Rewards</a>
     </div>    
-    
+
     <!-- Main Content -->
     <main class="content">
         <h1 style="color: brown;">{{ message }}</h1>
         <section class="about">
-            
             <h2>Welcome to Freelance Hub</h2>
-            <p>Freelance Hub is a platform designed to connect talented freelancers with businesses and individuals looking for high-quality services. Whether you are a developer, designer, writer, or marketer, this platform offers opportunities to showcase your skills and earn money.</p>
-        </section>
-
-        <section class="features">
-            <h2>Why Choose Freelance Hub?</h2>
-            <div class="feature-grid">
-                <div class="feature-item">
-                    <img src="https://images.pexels.com/photos/3194518/pexels-photo-3194518.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Freelance Opportunities">
-                    <h3>Endless Opportunities</h3>
-                    <p>Work on exciting projects from clients worldwide and build your career as a freelancer.</p>
-                </div>
-                <div class="feature-item">
-                    <img src="https://images.pexels.com/photos/3153198/pexels-photo-3153198.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Secure Payments">
-                    <h3>Secure Payments</h3>
-                    <p>We ensure safe and timely payments for all completed projects.</p>
-                </div>
-                <div class="feature-item">
-                    <img src="https://images.pexels.com/photos/4065133/pexels-photo-4065133.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Flexible Work">
-                    <h3>Work Flexibly</h3>
-                    <p>Choose projects that match your skills and work from anywhere, anytime.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="how-it-works">
-            <h2>How It Works?</h2>
-            <div class="steps">
-                <div class="step">
-                    <h3>1. Sign Up</h3>
-                    <p>Create a profile and showcase your skills to attract clients.</p>
-                </div>
-                <div class="step">
-                    <h3>2. Browse Projects</h3>
-                    <p>Explore a variety of projects and apply for the ones that match your expertise.</p>
-                </div>
-                <div class="step">
-                    <h3>3. Get Hired & Paid</h3>
-                    <p>Work on projects, deliver quality work, and receive payments securely.</p>
-                </div>
-            </div>
+            <p>Freelance Hub is a platform designed to connect talented freelancers with businesses and individuals looking for high-quality services.</p>
         </section>
     </main>
 
@@ -82,5 +44,21 @@
     <footer>
         <p>© 2025 Freelance Hub</p>
     </footer>
+
+    <script>
+        function togglePanel() {
+            const panel = document.getElementById("leftPanel");
+            const content = document.querySelector(".content");
+        
+            if (panel.classList.contains("show")) {
+                panel.classList.remove("show");
+                content.classList.remove("shift");
+            } else {
+                panel.classList.add("show");
+                content.classList.add("shift");
+            }
+        }        
+    </script>
+
 </body>
 </html>

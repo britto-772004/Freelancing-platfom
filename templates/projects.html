@@ -8,25 +8,25 @@
 </head>
 <body>
     <!-- Header Section -->
-    <header>
-        <div class="header-left">
-            <h1>Freelance Hub</h1>
-        </div>
-        <div class="header-right">
-            
-        </div>
-    </header>
-
-    <!-- Fixed Left Panel with Buttons -->
-    <div class="left-panel">
-        <a href="/home" class="panel-btn">🏠 Home</a>
-        <a href="/domain" class="panel-btn">🌎 Domain</a>
-        <a href="/" class="panel-btn">📁 Projects</a>
-        <a href="/dashboard" class="panel-btn">📊 Dashboard</a>
-        <a href="{{url_for('create_project')}}" class="panel-btn">➕ Create Project</a>
-        <a href="/rewards" class="panel-btn">🎖️ Rewards</a>
+        <header>
+            <div class="header-left">
+                <button id="toggle-btn">☰</button>  <!-- Toggle Button -->
+                <h1>Freelance Hub</h1>
+            </div>
+            <div class="header-right">
+                <!-- Add other header elements here -->
+            </div>
+        </header>
         
-    </div>
+        <!-- Sidebar -->
+        <div class="left-panel" id="leftPanel">
+            <a href="/home" class="panel-btn">🏠 Home</a>
+            <a href="/domain" class="panel-btn">🌎 Domain</a>
+            <a href="/" class="panel-btn">📁 Projects</a>
+            <a href="/dashboard" class="panel-btn">📊 Dashboard</a>
+            <a href="{{url_for('create_project')}}" class="panel-btn">➕ Create Project</a>
+            <a href="/rewards" class="panel-btn">🎖️ Rewards</a>
+        </div>
 
     <!-- Main Content -->
     <main class="content">
@@ -64,9 +64,18 @@
             </div> -->
         </div>
     </main>
-
+  
     <footer>
         <p>© 2025 Freelance Hub</p>
     </footer>
+
+    <script>
+        document.getElementById("toggle-btn").addEventListener("click", function() {
+            document.getElementById("leftPanel").classList.toggle("open");
+            document.getElementById("content").classList.toggle("shift");
+        });
+    </script>
+
+
 </body>
 </html>
