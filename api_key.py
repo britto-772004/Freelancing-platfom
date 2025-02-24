@@ -1,0 +1,4 @@
+CLIENT_ID = "956388694254-isujeblfgb249mbjpm2uvviu6tj09545.apps.googleusercontent.com"
+CLIENT_SECRET = "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"
+supabase_URL = "https://fonxxczyeptkamzpiatm.supabase.co"
+supabase_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZvbnh4Y3p5ZXB0a2FtenBpYXRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzgxMTYwNTEsImV4cCI6MjA1MzY5MjA1MX0.xf0R2Iem4dAXBun-OXM-j78mHNw2v8nEbVqodPxyNGk"

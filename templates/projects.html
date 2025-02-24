@@ -8,63 +8,51 @@
 </head>
 <body>
     <!-- Header Section -->
-        <header>
-            <div class="header-left">
-                <button id="toggle-btn">☰</button>  <!-- Toggle Button -->
-                <h1>Freelance Hub</h1>
-            </div>
-            <div class="header-right">
-                <!-- Add other header elements here -->
-            </div>
-        </header>
-        
-        <!-- Sidebar -->
-        <div class="left-panel" id="leftPanel">
-            <a href="/home" class="panel-btn">🏠 Home</a>
-            <a href="/domain" class="panel-btn">🌎 Domain</a>
-            <a href="/" class="panel-btn">📁 Projects</a>
-            <a href="/dashboard" class="panel-btn">📊 Dashboard</a>
-            <a href="{{url_for('create_project')}}" class="panel-btn">➕ Create Project</a>
-            <a href="/rewards" class="panel-btn">🎖️ Rewards</a>
+    <header>
+        <div class="header-left">
+            <button id="toggle-btn">☰</button>  <!-- Toggle Button -->
+            <h1>Freelance Hub</h1>
         </div>
+        <div class="header-right">
+            <!-- Add other header elements here -->
+        </div>
+    </header>
+    
+    <!-- Sidebar -->
+    <div class="left-panel" id="leftPanel">
+        <a href="/home" class="panel-btn">🏠 Home</a>
+        <a href="/domain" class="panel-btn">🌎 Domain</a>
+        <a href="/projects" class="panel-btn">📁 Projects</a>
+        <a href="/dashboard" class="panel-btn">📊 Dashboard</a>
+        <a href="{{url_for('create_project')}}" class="panel-btn">➕ Create Project</a>
+        <a href="/rewards" class="panel-btn">🎖️ Rewards</a>
+    </div>
 
     <!-- Main Content -->
     <main class="content">
-        <!-- <div class="search-container">
-            <input type="text" class="search-bar" placeholder="Search projects...">
+        <!-- Search Bar -->
+        <div class="search-container">
+            <input type="text" class="search-bar" id="searchInput" placeholder="Search projects..." onkeyup="searchProjects()">
             <button class="search-btn">Search</button>
-        </div> -->
-        <h1 style="text-align: left;">Projects </h1>
+        </div><br>
+
+
+        <h1 style="text-align: left;">Projects</h1>
+
         <!-- Horizontal Boxes -->
-        <div class="box-container">
+        <div class="box-container" id="projectList">
             {% for user in users %}
-            
-            <div class="box">
+            <div class="box project">
                 <div class="box-content">
-                    <h3>{{ user.title }}</h3>
-                    <p>{{ user.description }}</p>
+                    <h3 class="project-title">{{ user.title }}</h3>
+                    <p class="project-description">{{ user.description }}</p>
                 </div>
                 <a href="/project/{{ user.project_id }}" class="view-btn">View</a>
             </div>
-
             {% endfor %}
-            <!-- <div class="box">
-                <div class="box-content">
-                    <h3>Project Title 2</h3>
-                    <p>This is a brief description of the project. It includes details about the scope, timeline, and deliverables.</p>
-                </div>
-                <button class="view-btn">View</button>
-            </div>
-            <div class="box">
-                <div class="box-content">
-                    <h3>Project Title 3</h3>
-                    <p>This is a brief description of the project. It includes details about the scope, timeline, and deliverables.</p>
-                </div>
-                <button class="view-btn">View</button>
-            </div> -->
         </div>
     </main>
-  
+
     <footer>
         <p>© 2025 Freelance Hub</p>
     </footer>
@@ -72,10 +60,23 @@
     <script>
         document.getElementById("toggle-btn").addEventListener("click", function() {
             document.getElementById("leftPanel").classList.toggle("open");
-            document.getElementById("content").classList.toggle("shift");
         });
+
+        function searchProjects() {
+            let input = document.getElementById("searchInput").value.toLowerCase();
+            let projects = document.getElementsByClassName("project");
+
+            for (let i = 0; i < projects.length; i++) {
+                let title = projects[i].getElementsByClassName("project-title")[0].innerText.toLowerCase();
+                let description = projects[i].getElementsByClassName("project-description")[0].innerText.toLowerCase();
+                
+                if (title.includes(input) || description.includes(input)) {
+                    projects[i].style.display = "block";
+                } else {
+                    projects[i].style.display = "none";
+                }
+            }
+        }
     </script>
-
-
 </body>
 </html>

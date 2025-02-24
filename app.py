@@ -3,30 +3,30 @@ import supabase
 import secrets
 from datetime import datetime
 from authlib.integrations.flask_client import OAuth
-from api_key import *
 from auth import *
+import os
+from dotenv import load_dotenv
 
 app = Flask(__name__)
 app.secret_key = "noviun4t9483fjf9348j"
 
-supabase_url = supabase_URL
-supabase_key = supabase_KEY
+load_dotenv()
+supabase_url = os.getenv("supabase_URL")
+supabase_key = os.getenv("supabase_KEY")
 
 supabase_client = supabase.create_client(supabase_url,supabase_key)
-
 
 #google authorization
 oauth = OAuth(app)
 google = oauth.register(
     name = "google",
-    client_id = CLIENT_ID,
-    client_secret = CLIENT_SECRET,
+    client_id = os.getenv("CLIENT_ID"),
+    client_secret = os.getenv("CLIENT_SECRET"),
     access_token_url="https://oauth2.googleapis.com/token",
     authorize_url="https://accounts.google.com/o/oauth2/auth",
     server_metadata_url ="https://accounts.google.com/.well-known/openid-configuration",
     client_kwargs = {"scope": "openid email profile"},    
 )
-
 
 #Index page of project
 @app.route("/")
@@ -210,7 +210,6 @@ def projects_by_domain(domain_name):
 
     return render_template("projects.html", domain=domain_name, projects=projects)
 
-
 #put it in the Enroll-project table when the user enroll the project
 @app.route("/enroll/<int:project_id>", methods = ['GET','POST'])
 def enroll_project(project_id):
@@ -263,10 +262,6 @@ def require_login():
     if "mail-id" not in session and request.endpoint not in allowed_routes:
         return redirect(url_for("index"))
 
-#dashboard to view projects
-@app.route("/dashboard")
-def dashboard():
-    return render_template("dashboard.html")
 
 # Google Login Route
 @app.route("/google-login/<role>")
@@ -285,6 +280,31 @@ def google_auth():
     if not role:
         return "Role not specified. Please log in again.", 400
     return google_authroize(role)
+
+#dashboard to view projects
+@app.route("/dashboard")
+def dashboard():
+    mail_id = session.get('mail-id')
+    # Fetch enrolled projects for the freelancer
+    enroll_response = supabase_client.table("Enroll-project").select("*").eq("freelancer-mail-id", mail_id).execute()
+
+    projects = []
+    if enroll_response and enroll_response.data:
+        for project in enroll_response.data:
+            project_id = project['project_id']
+            # Fetch project title (Check correct table name: "Projects" or "projects")
+            project_response = supabase_client.table("Projects").select("title").eq("project_id", project_id).execute()
+            if project_response and project_response.data:
+                project_title = project_response.data[0]['title']
+            else:
+                project_title = "Unknown Project"
+            project['title'] = project_title
+            projects.append(project)
+
+    return render_template("dashboard.html", projects=projects)
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5001)
