@@ -3,10 +3,6 @@ import supabase
 from datetime import datetime
 
 app = Flask(__name__)
-app.secret_key = "noviun4t9483fjf9348j"
-
-supabase_url = "https://fonxxczyeptkamzpiatm.supabase.co"
-supabase_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZvbnh4Y3p5ZXB0a2FtenBpYXRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzgxMTYwNTEsImV4cCI6MjA1MzY5MjA1MX0.xf0R2Iem4dAXBun-OXM-j78mHNw2v8nEbVqodPxyNGk"
 
 
 supabase_client = supabase.create_client(supabase_url,supabase_key)
